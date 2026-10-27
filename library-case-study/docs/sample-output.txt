@@ -3,44 +3,44 @@
 LibraryItem is abstract, so only its concrete subclasses can be created.
 
 ===== 2. Inheritance + polymorphism =====
-#2001 Book "Java Basics" | loan: 14 days | available | author: Ani Wijaya | renewals: 0
-#2002 Magazine "Tech Monthly" | loan: 3 days | available | issue: 45
-#2003 Book "Data Structures" | loan: 14 days | available | author: Unknown | renewals: 0
+Book No. 2001 "Java Basics" | loan: 14 days | available | author: Ani Wijaya | renewals: 0
+Magazine No. 2002 "Tech Monthly" | loan: 3 days | available | issue: 45
+Book No. 2003 "Data Structures" | loan: 14 days | available | author: Unknown | renewals: 0
 
 Loan period of every item (same call, different values):
-  Book #2001: 14  (expected: 14) -> OK
-  Magazine #2002: 3  (expected: 3) -> OK
-  Book #2003: 14  (expected: 14) -> OK
+  Book No. 2001: 14  (expected: 14) -> OK
+  Magazine No. 2002: 3  (expected: 3) -> OK
+  Book No. 2003: 14  (expected: 14) -> OK
 
 Borrowing (the shared concrete method from LibraryItem):
-  Rina borrows Book #2001: true  (expected: true) -> OK
-  Rina borrows Magazine #2002: true  (expected: true) -> OK
-  Dimas borrows Book #2003: true  (expected: true) -> OK
-  Dimas borrows Book #2001 (already taken): false  (expected: false) -> OK
+  Rina borrows Book No. 2001: true  (expected: true) -> OK
+  Rina borrows Magazine No. 2002: true  (expected: true) -> OK
+  Dimas borrows Book No. 2003: true  (expected: true) -> OK
+  Dimas borrows Book No. 2001 (already taken): false  (expected: false) -> OK
 
 ===== 3. Interface Describable (LibraryMember and LibraryItem are unrelated) =====
 [UNRAM Mini Library] Member Rina Lestari | items: 2
-[UNRAM Mini Library] #2001 Book "Java Basics" | loan: 14 days | borrowed | author: Ani Wijaya | renewals: 0
+[UNRAM Mini Library] Book No. 2001 "Java Basics" | loan: 14 days | borrowed | author: Ani Wijaya | renewals: 0
 
 ===== 4. Interface Renewable =====
-Book #2001 is Renewable? true
-Magazine #2002 is Renewable? false
-Book #2003 is Renewable? true
-Renew Book #2001, 1st time: true  (expected: true) -> OK
-Renew Book #2001, 2nd time: true  (expected: true) -> OK
-Renew Book #2001, 3rd time (limit is 2): false  (expected: false) -> OK
-Renewal count of Book #2001: 2  (expected: 2) -> OK
+Book No. 2001 is Renewable? true
+Magazine No. 2002 is Renewable? false
+Book No. 2003 is Renewable? true
+Renew Book No. 2001, 1st time: true  (expected: true) -> OK
+Renew Book No. 2001, 2nd time: true  (expected: true) -> OK
+Renew Book No. 2001, 3rd time (limit is 2): false  (expected: false) -> OK
+Renewal count of Book No. 2001: 2  (expected: 2) -> OK
 
 ===== 5. Fines (one call, different behaviours) =====
-Fine of Book #2001 for 5 days late (5 x 500): 2500.0  (expected: 2500.0) -> OK
-Fine of Magazine #2002 for 5 days late (5 x 1000): 5000.0  (expected: 5000.0) -> OK
-Fine of Magazine #2002 for 0 days late: 0.0  (expected: 0.0) -> OK
+Fine of Book No. 2001 for 5 days late (5 x 500): 2500.0  (expected: 2500.0) -> OK
+Fine of Magazine No. 2002 for 5 days late (5 x 1000): 5000.0  (expected: 5000.0) -> OK
+Fine of Magazine No. 2002 for 0 days late: 0.0  (expected: 0.0) -> OK
 Rina total fine, 5 days late (2500 + 5000): 7500.0  (expected: 7500.0) -> OK
 Dimas total fine, 5 days late (2500): 2500.0  (expected: 2500.0) -> OK
 
-Rina returns Book #2001: true  (expected: true) -> OK
-Rina returns Book #2001 again: false  (expected: false) -> OK
-#2001 Book "Java Basics" | loan: 14 days | available | author: Ani Wijaya | renewals: 2
+Rina returns Book No. 2001: true  (expected: true) -> OK
+Rina returns Book No. 2001 again: false  (expected: false) -> OK
+Book No. 2001 "Java Basics" | loan: 14 days | available | author: Ani Wijaya | renewals: 2
 
 ===== 6. Constants =====
 LibraryItem.DEFAULT_FINE_PER_DAY: 500.0  (expected: 500.0) -> OK

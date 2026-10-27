@@ -2,7 +2,8 @@
 ### Abstract Class, Interface, Inheritance & Polymorphism in Java
 
 **Course:** PBO (Object-Oriented Programming)
-**Name / NIM / Class:** `<Meisya Ananda Puteri>`,`<F1D02410072>`,`<A>`
+**Name / NIM / Class:** `<Name>`, `<NIM>`, `<Class>` *(fill in before submitting)*
+**Based on:** slides *PBO 5 & 6* and *PBO 7 & 8*
 
 ---
 
@@ -11,7 +12,7 @@
 A library lends **items** to **members**. Not every item is the same: a **book** has a long loan period and can
 be renewed, while a **magazine** has a short loan period, cannot be renewed and has a higher late fine.
 This case study models that difference with an **abstract class**, **interfaces**, **inheritance** and
-**polymorphism**.
+**polymorphism**, and nothing else beyond what the slides cover.
 
 ## 2. Problem
 
@@ -84,22 +85,22 @@ The loop does not care which item it holds.
 
 | Member | Item | Type | Loan period |
 |---|---|---|---|
-| Rina Lestari | #2001 "Java Basics" (Ani Wijaya) | Book | 14 days |
-| Rina Lestari | #2002 "Tech Monthly" (issue 45) | Magazine | 3 days |
-| Dimas Putra | #2003 "Data Structures" (author `Unknown`, overloaded constructor) | Book | 14 days |
+| Rina Lestari | No. 2001 "Java Basics" (Ani Wijaya) | Book | 14 days |
+| Rina Lestari | No. 2002 "Tech Monthly" (issue 45) | Magazine | 3 days |
+| Dimas Putra | No. 2003 "Data Structures" (author `Unknown`, overloaded constructor) | Book | 14 days |
 
-**Borrowing:** Rina borrows #2001 and #2002 (`true`), Dimas borrows #2003 (`true`),
-Dimas tries #2001 which Rina already has (`false`).
+**Borrowing:** Rina borrows No. 2001 and No. 2002 (`true`), Dimas borrows No. 2003 (`true`),
+Dimas tries No. 2001 which Rina already has (`false`).
 
-**Renewing Book #2001** (through the `Renewable` type): 1st `true`, 2nd `true`, 3rd `false` (limit `MAX_RENEWALS = 2`).
+**Renewing Book No. 2001** (through the `Renewable` type): 1st `true`, 2nd `true`, 3rd `false` (limit `MAX_RENEWALS = 2`).
 `instanceof Renewable` is `true` for both books and `false` for the magazine.
 
 **Fine when 5 days late** (same call, different rules):
 
 | Item | Rule | Fine |
 |---|---|---|
-| Book #2001 | 5 × 500 (default) | 2500.0 |
-| Magazine #2002 | 5 × 1000 (overridden) | 5000.0 |
+| Book No. 2001 | 5 × 500 (default) | 2500.0 |
+| Magazine No. 2002 | 5 × 1000 (overridden) | 5000.0 |
 | Rina total | 2500 + 5000 | 7500.0 |
 | Dimas total | 2500 | 2500.0 |
 

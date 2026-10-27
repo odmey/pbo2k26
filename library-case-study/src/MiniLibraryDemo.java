@@ -48,10 +48,10 @@ public class MiniLibraryDemo {
 
         System.out.println();
         System.out.println("Borrowing (the shared concrete method from LibraryItem):");
-        check("  Rina borrows Book #2001", "" + rina.borrow(book1), "true");
-        check("  Rina borrows Magazine #2002", "" + rina.borrow(mag1), "true");
-        check("  Dimas borrows Book #2003", "" + dimas.borrow(book2), "true");
-        check("  Dimas borrows Book #2001 (already taken)", "" + dimas.borrow(book1), "false");
+        check("  Rina borrows Book No. 2001", "" + rina.borrow(book1), "true");
+        check("  Rina borrows Magazine No. 2002", "" + rina.borrow(mag1), "true");
+        check("  Dimas borrows Book No. 2003", "" + dimas.borrow(book2), "true");
+        check("  Dimas borrows Book No. 2001 (already taken)", "" + dimas.borrow(book1), "false");
 
         // ---------- 3. INTERFACE: Describable (unrelated classes, one contract) ----------
         Describable.printHeader("3. Interface Describable (LibraryMember and LibraryItem are unrelated)");
@@ -66,22 +66,22 @@ public class MiniLibraryDemo {
             System.out.println(i + " is Renewable? " + (i instanceof Renewable));
         }
         Renewable r = book1;                           // used through the INTERFACE type
-        check("Renew Book #2001, 1st time", "" + r.renew(), "true");
-        check("Renew Book #2001, 2nd time", "" + r.renew(), "true");
-        check("Renew Book #2001, 3rd time (limit is " + Renewable.MAX_RENEWALS + ")", "" + r.renew(), "false");
-        check("Renewal count of Book #2001", "" + r.getRenewalCount(), "2");
+        check("Renew Book No. 2001, 1st time", "" + r.renew(), "true");
+        check("Renew Book No. 2001, 2nd time", "" + r.renew(), "true");
+        check("Renew Book No. 2001, 3rd time (limit is " + Renewable.MAX_RENEWALS + ")", "" + r.renew(), "false");
+        check("Renewal count of Book No. 2001", "" + r.getRenewalCount(), "2");
 
         // ---------- 5. POLYMORPHISM: fines ----------
         Describable.printHeader("5. Fines (one call, different behaviours)");
-        check("Fine of Book #2001 for 5 days late (5 x 500)", "" + book1.calculateFine(5), "2500.0");
-        check("Fine of Magazine #2002 for 5 days late (5 x 1000)", "" + mag1.calculateFine(5), "5000.0");
-        check("Fine of Magazine #2002 for 0 days late", "" + mag1.calculateFine(0), "0.0");
+        check("Fine of Book No. 2001 for 5 days late (5 x 500)", "" + book1.calculateFine(5), "2500.0");
+        check("Fine of Magazine No. 2002 for 5 days late (5 x 1000)", "" + mag1.calculateFine(5), "5000.0");
+        check("Fine of Magazine No. 2002 for 0 days late", "" + mag1.calculateFine(0), "0.0");
         check("Rina total fine, 5 days late (2500 + 5000)", "" + rina.calculateTotalFine(5), "7500.0");
         check("Dimas total fine, 5 days late (2500)", "" + dimas.calculateTotalFine(5), "2500.0");
 
         System.out.println();
-        check("Rina returns Book #2001", "" + book1.returnItem(), "true");
-        check("Rina returns Book #2001 again", "" + book1.returnItem(), "false");
+        check("Rina returns Book No. 2001", "" + book1.returnItem(), "true");
+        check("Rina returns Book No. 2001 again", "" + book1.returnItem(), "false");
         System.out.println(book1.describe());
 
         // ---------- 6. STATIC / CONSTANTS ----------

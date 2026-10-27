@@ -78,12 +78,12 @@ public abstract class LibraryItem implements Describable {
         if (borrowed) {
             status = "borrowed";
         }
-        return "#" + itemId + " " + getItemType() + " \"" + title + "\""
+        return getItemType() + " No. " + itemId + " \"" + title + "\""
                 + " | loan: " + getLoanDays() + " days | " + status;
     }
 
     @Override
     public String toString() {
-        return getItemType() + " #" + itemId;
+        return getItemType() + " No. " + itemId;
     }
 }
