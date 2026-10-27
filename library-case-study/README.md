@@ -1,10 +1,8 @@
 # Mini Library: Abstract Class, Interface, Inheritance & Polymorphism
 
 Case study for **PBO (Object-Oriented Programming with Java)**.
-It uses only topics from the slides *PBO 5 & 6* (Abstraction, Encapsulation, Inheritance, Polymorphism)
-and *PBO 7 & 8* (Abstract Class and Interface).
 
-> **Name / NIM / Class:** `<Name>`, `<NIM>`, `<Class>`  *(fill in before submitting)*
+> **Name / NIM / Class:** `<Meisya Ananda Puteri>`, `<F1D02410072>`, `<A>`
 > Full write-up: [`CASE-STUDY.md`](CASE-STUDY.md)
 
 | Required topic | Where in this project |

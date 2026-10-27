@@ -2,8 +2,7 @@
 ### Abstract Class, Interface, Inheritance & Polymorphism in Java
 
 **Course:** PBO (Object-Oriented Programming)
-**Name / NIM / Class:** `<Name>`, `<NIM>`, `<Class>` *(fill in before submitting)*
-**Based on:** slides *PBO 5 & 6* and *PBO 7 & 8*
+**Name / NIM / Class:** `<Meisya Ananda Puteri>`, `<F1D02410072>`, `<A>`
 
 ---
 
