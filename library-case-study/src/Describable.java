@@ -5,11 +5,6 @@
  * LibraryItem and LibraryMember are NOT related by inheritance,
  * yet both sign this contract (can-do relationship).
  *
- * Slide topics shown here (PBO 7 and 8):
- *  - a constant         (implicitly public static final)
- *  - an abstract method (implicitly public abstract, no body)
- *  - a default method   (Java 8)
- *  - a static method    (Java 8)
  */
 public interface Describable {
 

@@ -9,7 +9,7 @@ public class Magazine extends LibraryItem {
 
     public static final double FINE_PER_DAY = 1000.0;   // constant: static final
 
-    private int issueNumber;
+    final private int issueNumber;
 
     public Magazine(int itemId, String title, int issueNumber) {
         super(itemId, title);

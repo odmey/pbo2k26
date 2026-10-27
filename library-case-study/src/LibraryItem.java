@@ -16,7 +16,7 @@ public abstract class LibraryItem implements Describable {
     public static final double DEFAULT_FINE_PER_DAY = 500.0;   // constant: static final
 
     private final int itemId;        // private: only reachable through the getter
-    private String title;            // private: encapsulation
+    final private String title;            // private: encapsulation
     protected boolean borrowed;      // protected: subclasses may use it directly
 
     // Constructor of an abstract class: runs when a subclass calls super(...).
