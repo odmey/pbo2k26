@@ -2,8 +2,7 @@
 ### Abstract Class, Interface, Inheritance & Polymorphism in Java
 
 **Course:** PBO (Object-Oriented Programming)
-**Name / NIM / Class:** `<Name>`, `<NIM>`, `<Class>` *(fill in before submitting)*
-**Based on:** slides *PBO 5 & 6* and *PBO 7 & 8*
+**Name / NIM / Class:** `<Meisya Ananda Puteri>`,`<F1D02410072>`,`<A>`
 
 ---
 
@@ -12,7 +11,7 @@
 A library lends **items** to **members**. Not every item is the same: a **book** has a long loan period and can
 be renewed, while a **magazine** has a short loan period, cannot be renewed and has a higher late fine.
 This case study models that difference with an **abstract class**, **interfaces**, **inheritance** and
-**polymorphism**, and nothing else beyond what the slides cover.
+**polymorphism**.
 
 ## 2. Problem
 
