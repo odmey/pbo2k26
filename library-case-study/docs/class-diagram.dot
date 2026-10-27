@@ -1,0 +1,71 @@
+digraph G {
+  graph [rankdir=BT, nodesep=0.6, ranksep=0.9, fontname="Helvetica", bgcolor="white", pad=0.3];
+  node  [shape=plain, fontname="Helvetica", fontsize=11];
+  edge  [fontname="Helvetica", fontsize=10];
+
+  Describable [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#E6F1FB">
+      <TR><TD ALIGN="CENTER"><FONT POINT-SIZE="9">&#171;interface&#187;</FONT><BR/><B>Describable</B></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ LIBRARY_NAME : String {static final}</TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><I>+ describe() : String</I><BR ALIGN="LEFT"/>+ printInfo() : void {default}<BR ALIGN="LEFT"/>+ printHeader(title) {static}<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  Renewable [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#E6F1FB">
+      <TR><TD ALIGN="CENTER"><FONT POINT-SIZE="9">&#171;interface&#187;</FONT><BR/><B>Renewable</B></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ MAX_RENEWALS : int {static final}</TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><I>+ renew() : boolean</I><BR ALIGN="LEFT"/><I>+ getRenewalCount() : int</I><BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  LibraryItem [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#FAEEDA">
+      <TR><TD ALIGN="CENTER"><FONT POINT-SIZE="9">{abstract}</FONT><BR/><B><I>LibraryItem</I></B></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ DEFAULT_FINE_PER_DAY : double {static final}<BR ALIGN="LEFT"/>- itemId : int<BR ALIGN="LEFT"/>- title : String<BR ALIGN="LEFT"/># borrowed : boolean<BR ALIGN="LEFT"/></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ LibraryItem(itemId, title)<BR ALIGN="LEFT"/>+ borrowItem() : boolean<BR ALIGN="LEFT"/>+ returnItem() : boolean<BR ALIGN="LEFT"/>+ calculateFine(daysLate) : double<BR ALIGN="LEFT"/><I>+ getItemType() : String {abstract}</I><BR ALIGN="LEFT"/><I>+ getLoanDays() : int {abstract}</I><BR ALIGN="LEFT"/>+ describe() : String<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  Book [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#EAF3DE">
+      <TR><TD ALIGN="CENTER"><B>Book</B></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ UNKNOWN_AUTHOR : String {static final}<BR ALIGN="LEFT"/>- author : String<BR ALIGN="LEFT"/>- renewalCount : int<BR ALIGN="LEFT"/></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ Book(itemId, title, author)<BR ALIGN="LEFT"/>+ Book(itemId, title)<BR ALIGN="LEFT"/>+ renew() : boolean<BR ALIGN="LEFT"/>+ getRenewalCount() : int<BR ALIGN="LEFT"/>+ getItemType() : String<BR ALIGN="LEFT"/>+ getLoanDays() : int<BR ALIGN="LEFT"/>+ describe() : String<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  Magazine [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#EAF3DE">
+      <TR><TD ALIGN="CENTER"><B>Magazine</B></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ FINE_PER_DAY : double {static final}<BR ALIGN="LEFT"/>- issueNumber : int<BR ALIGN="LEFT"/></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ Magazine(itemId, title, issueNumber)<BR ALIGN="LEFT"/>+ calculateFine(daysLate) : double<BR ALIGN="LEFT"/>+ getItemType() : String<BR ALIGN="LEFT"/>+ getLoanDays() : int<BR ALIGN="LEFT"/>+ describe() : String<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  LibraryMember [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#F1EFE8">
+      <TR><TD ALIGN="CENTER"><B>LibraryMember</B></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">- firstName : String<BR ALIGN="LEFT"/>- lastName : String<BR ALIGN="LEFT"/>- items : ArrayList&lt;LibraryItem&gt;<BR ALIGN="LEFT"/></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ LibraryMember(firstName, lastName)<BR ALIGN="LEFT"/>+ borrow(item) : boolean<BR ALIGN="LEFT"/>+ getNumOfItems() : int<BR ALIGN="LEFT"/>+ calculateTotalFine(daysLate) : double<BR ALIGN="LEFT"/>+ describe() : String<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  // inheritance (extends): solid line, hollow triangle
+  Book     -> LibraryItem [arrowhead=empty, penwidth=1.4];
+  Magazine -> LibraryItem [arrowhead=empty, penwidth=1.4];
+
+  // implements: dashed line, hollow triangle
+  LibraryItem   -> Describable [arrowhead=empty, style=dashed, color="#185FA5"];
+  LibraryMember -> Describable [arrowhead=empty, style=dashed, color="#185FA5"];
+  Book          -> Renewable   [arrowhead=empty, style=dashed, color="#185FA5"];
+
+  // composition (has-a): filled diamond on the owner
+  LibraryItem -> LibraryMember [arrowhead=diamond, taillabel="0..*", label=" items "];
+}

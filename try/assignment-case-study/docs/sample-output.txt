@@ -1,0 +1,40 @@
+
+===== 1. Abstract class =====
+BaseAccount is abstract, so only its concrete subclasses can be created.
+
+===== 2. Inheritance + polymorphism =====
+#1001 Savings | balance: 1000.0 | rate: 12.0%/yr
+#1002 Checking | balance: 500.0 | overdraft limit: 300.0
+#1003 Savings | balance: 300.0 | rate: 4.0%/yr
+
+Withdraw 600 from every account (same call, different rules):
+  Savings #1001 (Savings: 1000 >= 600): true  (expected: true) -> OK
+  Checking #1002 (Checking: 500 + overdraft 300 = 800 >= 600): true  (expected: true) -> OK
+  Savings #1003 (Savings: 300 < 600): false  (expected: false) -> OK
+Checking balance is now: -100.0  (expected: -100.0) -> OK
+
+===== 3. Interface Reportable (BankCustomer and BaseAccount are unrelated) =====
+[UNRAM Mini Bank] Customer Akbar Pratama | accounts: 2 | total balance: 300.0
+[UNRAM Mini Bank] #1001 Savings | balance: 400.0 | rate: 12.0%/yr
+
+===== 4. Interface InterestBearing =====
+Savings #1001 is InterestBearing? true
+Checking #1002 is InterestBearing? false
+Savings #1003 is InterestBearing? true
+Interest of Savings #1001 this month: 4.0  (expected: 4.0) -> OK
+Interest of Savings #1003 this month: 1.0  (expected: 1.0) -> OK
+
+===== 5. Month end (one call, different behaviours) =====
+Savings #1001 (interest 4.0): 404.0  (expected: 404.0) -> OK
+Checking #1002 (fee 5.0): -105.0  (expected: -105.0) -> OK
+Savings #1003 (interest 1.0): 301.0  (expected: 301.0) -> OK
+Akbar total (404.0 + -105.0): 299.0  (expected: 299.0) -> OK
+
+#1001 Savings | balance: 404.0 | rate: 12.0%/yr
+#1002 Checking | balance: -105.0 | overdraft limit: 300.0
+#1003 Savings | balance: 301.0 | rate: 4.0%/yr
+
+===== 6. Constants =====
+CheckingAccount.MONTHLY_FEE: 5.0  (expected: 5.0) -> OK
+SavingsAccount.DEFAULT_RATE: 0.04  (expected: 0.04) -> OK
+Reportable.BANK_NAME: UNRAM Mini Bank  (expected: UNRAM Mini Bank) -> OK

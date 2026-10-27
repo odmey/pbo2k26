@@ -1,0 +1,69 @@
+digraph G {
+  graph [rankdir=BT, nodesep=0.6, ranksep=0.9, fontname="Helvetica", bgcolor="white", pad=0.3];
+  node  [shape=plain, fontname="Helvetica", fontsize=11];
+  edge  [fontname="Helvetica", fontsize=10];
+
+  Reportable [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#E6F1FB">
+      <TR><TD ALIGN="CENTER"><FONT POINT-SIZE="9">&#171;interface&#187;</FONT><BR/><B>Reportable</B></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ BANK_NAME : String {static final}</TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><I>+ toReport() : String</I><BR ALIGN="LEFT"/>+ printReport() : void {default}<BR ALIGN="LEFT"/>+ printHeader(title) {static}<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  InterestBearing [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#E6F1FB">
+      <TR><TD ALIGN="CENTER"><FONT POINT-SIZE="9">&#171;interface&#187;</FONT><BR/><B>InterestBearing</B></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><I>+ calculateInterest() : double</I><BR ALIGN="LEFT"/><I>+ getInterestRate() : double</I><BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  BaseAccount [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#FAEEDA">
+      <TR><TD ALIGN="CENTER"><FONT POINT-SIZE="9">{abstract}</FONT><BR/><B><I>BaseAccount</I></B></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">- accountNumber : int<BR ALIGN="LEFT"/># balance : double<BR ALIGN="LEFT"/></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ BaseAccount(accountNumber, initBalance)<BR ALIGN="LEFT"/>+ getBalance() : double<BR ALIGN="LEFT"/>+ deposit(amount) : boolean<BR ALIGN="LEFT"/>+ withdraw(amount) : boolean<BR ALIGN="LEFT"/><I>+ getAccountType() : String {abstract}</I><BR ALIGN="LEFT"/><I>+ monthEndUpdate() : void {abstract}</I><BR ALIGN="LEFT"/>+ toReport() : String<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  SavingsAccount [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#EAF3DE">
+      <TR><TD ALIGN="CENTER"><B>SavingsAccount</B></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ DEFAULT_RATE : double {static final}<BR ALIGN="LEFT"/>- annualRate : double<BR ALIGN="LEFT"/></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ SavingsAccount(number, init, rate)<BR ALIGN="LEFT"/>+ SavingsAccount(number, init)<BR ALIGN="LEFT"/>+ calculateInterest() : double<BR ALIGN="LEFT"/>+ getInterestRate() : double<BR ALIGN="LEFT"/>+ getAccountType() : String<BR ALIGN="LEFT"/>+ monthEndUpdate() : void<BR ALIGN="LEFT"/>+ toReport() : String<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  CheckingAccount [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#EAF3DE">
+      <TR><TD ALIGN="CENTER"><B>CheckingAccount</B></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ MONTHLY_FEE : double {static final}<BR ALIGN="LEFT"/>- overdraftLimit : double<BR ALIGN="LEFT"/></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ CheckingAccount(number, init, limit)<BR ALIGN="LEFT"/>+ withdraw(amount) : boolean<BR ALIGN="LEFT"/>+ getAccountType() : String<BR ALIGN="LEFT"/>+ monthEndUpdate() : void<BR ALIGN="LEFT"/>+ toReport() : String<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  BankCustomer [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#F1EFE8">
+      <TR><TD ALIGN="CENTER"><B>BankCustomer</B></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">- firstName : String<BR ALIGN="LEFT"/>- lastName : String<BR ALIGN="LEFT"/>- accounts : ArrayList&lt;BaseAccount&gt;<BR ALIGN="LEFT"/></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ BankCustomer(firstName, lastName)<BR ALIGN="LEFT"/>+ addAccount(account) : void<BR ALIGN="LEFT"/>+ getTotalBalance() : double<BR ALIGN="LEFT"/>+ monthEnd() : void<BR ALIGN="LEFT"/>+ toReport() : String<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  // inheritance (extends): solid line, hollow triangle
+  SavingsAccount  -> BaseAccount [arrowhead=empty, penwidth=1.4];
+  CheckingAccount -> BaseAccount [arrowhead=empty, penwidth=1.4];
+
+  // implements: dashed line, hollow triangle
+  BaseAccount    -> Reportable      [arrowhead=empty, style=dashed, color="#185FA5"];
+  BankCustomer   -> Reportable      [arrowhead=empty, style=dashed, color="#185FA5"];
+  SavingsAccount -> InterestBearing [arrowhead=empty, style=dashed, color="#185FA5"];
+
+  // composition (has-a): filled diamond on the owner
+  BaseAccount -> BankCustomer [arrowhead=diamond, taillabel="0..*", label=" accounts "];
+}
