@@ -1,6 +1,6 @@
 public class TiketKonser extends Tiket implements IPromo {
-    private String namaArtis;
-    private String kelas;
+    private final String namaArtis;
+    private final String kelas;
     private static int promoUsageCount = 0;
     private static final int MAX_PROMO_USAGE = 2;
 

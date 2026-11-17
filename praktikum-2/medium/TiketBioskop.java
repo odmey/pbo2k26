@@ -1,6 +1,6 @@
 public class TiketBioskop extends Tiket implements IPromo {
-    private String nomorKursi;
-    private String kelas;
+    private final String nomorKursi;
+    private final String kelas;
     private static int promoUsageCount = 0;
     private static final int MAX_PROMO_USAGE = 2;
 
