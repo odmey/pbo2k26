@@ -1,20 +1,13 @@
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.sql.SQLException;
+package ui;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
-import db.SessionDAO;
+import java.awt.*;
+import javax.swing.*;
 
 public class TimerPanel extends JPanel {
     private JLabel labelSession = new JLabel("FOCUS SESSION");
     private JLabel labelTimer = new JLabel("25:00");
     private JLabel labelDescription = new JLabel("Time to focus on your task");
+    private JLabel labelStatus = new JLabel(" ");
 
     private JButton buttonFocus = new JButton("Focus");
     private JButton buttonShortBreak = new JButton("Short Break");
@@ -23,9 +16,9 @@ public class TimerPanel extends JPanel {
     private JButton buttonReset = new JButton("Reset");
     private JButton buttonHistory = new JButton("History");
 
-    private TimerController controller = new TimerController(labelTimer, buttonStart);
+    private TimerController controller = new TimerController(labelTimer, buttonStart, labelStatus);
 
-    public TimerPanel() {
+    public TimerPanel(JFrame owner) {
         setLayout(new GridBagLayout());
         setBackground(Theme.BACKGROUND);
 
@@ -33,6 +26,7 @@ public class TimerPanel extends JPanel {
         labelTimer.setFont(Theme.FONT_TIMER);
         labelTimer.setForeground(Theme.DARK);
         labelDescription.setForeground(Theme.GRAY);
+        labelStatus.setForeground(Theme.GRAY);
 
         JPanel panelMode = new JPanel();
         panelMode.setBackground(Theme.WHITE);
@@ -45,7 +39,8 @@ public class TimerPanel extends JPanel {
         panelButton.add(buttonStart);
         panelButton.add(buttonReset);
         panelButton.add(buttonHistory);
-        buttonHistory.addActionListener(e -> showHistory());
+        buttonHistory.addActionListener(e ->
+            new HistoryDialog(owner).setVisible(true));
 
         JPanel card = new JPanel(new GridBagLayout());
         card.setBackground(Theme.WHITE);
@@ -65,6 +60,8 @@ public class TimerPanel extends JPanel {
         card.add(labelDescription, c);
         c.gridy = 4;
         card.add(panelButton, c);
+        c.gridy = 5;
+        card.add(labelStatus, c);
 
         add(card);
         setActiveButton(buttonFocus);
@@ -106,20 +103,5 @@ public class TimerPanel extends JPanel {
 
         activeButton.setBackground(Theme.PURPLE);
         activeButton.setForeground(Theme.WHITE);
-    }
-
-    private void showHistory() {
-        try {
-            SessionDAO dao = new SessionDAO();
-            String text = "";
-
-            for (String row : dao.getAll()) {
-                text += row + "\n";
-            }
-
-            JOptionPane.showMessageDialog(this, text.isEmpty() ? "Belum ada riwayat" : text);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Gagal memuat: " + e.getMessage());
-        }
     }
 }

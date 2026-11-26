@@ -1,11 +1,8 @@
-import java.sql.SQLException;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+package ui;
 
 import db.SessionDAO;
+import java.sql.SQLException;
+import javax.swing.*;
 
 public class TimerController {
     private String sessionName = "FOCUS SESSION";
@@ -15,11 +12,13 @@ public class TimerController {
 
     private JLabel labelTimer;
     private JButton buttonStart;
+    private JLabel labelStatus;
     private SessionDAO dao = new SessionDAO();
 
-    public TimerController(JLabel labelTimer, JButton buttonStart) {
+    public TimerController(JLabel labelTimer, JButton buttonStart, JLabel labelStatus) {
         this.labelTimer = labelTimer;
         this.buttonStart = buttonStart;
+        this.labelStatus = labelStatus;
     }
 
     public boolean isRunning() {
@@ -27,6 +26,9 @@ public class TimerController {
     }
 
     public void start() {
+        if (remainingTime == 0) {
+            reset();   // sesi sudah habis: mulai lagi dari durasi penuh
+        }
         if (remainingTime > 0) {
             thread = new Thread(() -> {
                 try {
@@ -55,6 +57,7 @@ public class TimerController {
         pause();
         remainingTime = minutes * 60;
         updateLabel();
+        labelStatus.setText(" ");
     }
 
     public void setDuration(String sessionName, int minutes) {
@@ -75,13 +78,36 @@ public class TimerController {
         }
     }
 
+    // Pola: DB di thread -> invokeLater -> UI
     private void saveSession() {
-        try {
-            dao.insert(sessionName, minutes);
-            JOptionPane.showMessageDialog(null, "Sesi selesai dan tersimpan");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal menyimpan: " + e.getMessage());
-        }
+        // 1) Di EDT: disable tombol dan tampilkan status
+        buttonStart.setEnabled(false);
+        labelStatus.setText("Saving…");
+
+        final String name = sessionName;
+        final int mins = minutes;
+
+        // 2) Query DB di thread terpisah
+        new Thread(() -> {
+            Exception error = null;
+            try {
+                dao.insert(name, mins);
+            } catch (SQLException e) {
+                error = e;
+            }
+            final Exception err = error;
+
+            // 3) Kembali ke EDT untuk update tampilan
+            SwingUtilities.invokeLater(() -> {
+                buttonStart.setEnabled(true);
+                if (err == null) {
+                    labelStatus.setText("Saved ✓");
+                } else {
+                    labelStatus.setText("Failed to save");
+                    JOptionPane.showMessageDialog(null, "Gagal menyimpan: " + err.getMessage());
+                }
+            });
+        }).start();
     }
 
     private void updateLabel() {
